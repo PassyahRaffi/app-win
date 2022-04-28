@@ -1,10 +1,14 @@
 # Getting Started with React App (OPEN YOUR TERMINAL)
 
-## cd /server
+## cd /client
+### npm install
+
+#### cd ../server
+##### npm install
 
 In the project directory, you can run:
 
-### `npm run dev`
+###### `npm run dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
