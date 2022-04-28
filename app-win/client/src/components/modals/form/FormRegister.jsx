@@ -18,7 +18,7 @@ export default function FormRegister() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.fullname]: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -88,7 +88,7 @@ export default function FormRegister() {
         <div className="md:mx-20 md:my-16">
           <form onSubmit={handleSubmit}>
             <label htmlFor="fullname" className="flex flex-col font-bold md:mb-2">
-              Name
+              Fullname
               <input
                 name="fullname"
                 value={fullname}

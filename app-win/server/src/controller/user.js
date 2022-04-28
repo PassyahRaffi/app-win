@@ -1,5 +1,6 @@
 const { users } = require("../../models");
 
+// exports manual add data user
 exports.addUsers = async (request, response) => {
   try {
     await users.create(request.body);
@@ -17,6 +18,7 @@ exports.addUsers = async (request, response) => {
   }
 };
 
+// exports get data all user
 exports.getUsers = async (request, response) => {
   try {
     const AllUsers = await users.findAll({
@@ -40,6 +42,7 @@ exports.getUsers = async (request, response) => {
   }
 };
 
+// exports get data user by id
 exports.getUser = async (request, response) => {
   try {
     const { id } = request.params;
@@ -73,6 +76,7 @@ exports.getUser = async (request, response) => {
   }
 };
 
+// exports delete data user
 exports.deleteUser = async (request, response) => {
   try {
     const { id } = request.params;

@@ -1,26 +1,28 @@
 import { useContext, useState } from "react";
 import { API } from "../config/api";
-
 import { UserContext } from "../context/userContext";
 
 export default function EditProfile() {
   const [message, setMessage] = useState(null);
   const [state, dispatch] = useContext(UserContext);
+  const [preview, setPreview] = useState(null);
 
   const [form, setForm] = useState({
     fullname: state.user.fullname,
     username: state.user.username,
+    gender: state.user.gender,
     phone: state.user.phone ? state.user.phone : "",
     address: state.user.address,
     email: state.user.email,
+    image: "",
   });
 
-  const { fullname, username, phone, address, email } = form;
+  const { fullname, username, gender, phone, address, email } = form;
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.fullname]: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -56,115 +58,164 @@ export default function EditProfile() {
   };
 
   return (
-    <div className="my-14 mx-4 lg:mx-40">
-      <h1 className="text-3xl font-['Avenir-Black'] font-extrabold text-brand-red mb-8">
-        Edit Profile
-      </h1>
+    <>
+      <div className="min-h-full flex items-center justify-center pt-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-extrabold">
+              Edit Profile
+            </h2>
+          </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="space-y-6 mb-8">
-          <label htmlFor="fullname" className="block">
-            <span class="block text-sm font-medium text-slate-700 md:mb-2">
-              Fullname
-            </span>
-            <input
-              type="text"
-              name="fullname"
-              id="fullname"
-              required
-              onChange={handleChange}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("fullname required.")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-              placeholder="Input Name"
-              value={fullname}
-              className="w-full p-3 outline outline-2 outline-gray-400 focus:outline-black rounded-md bg-gray-200"
+          <div className="flex justify-center">
+            <img
+              src={state.user.image}
+              alt="user"
+              className="rounded-full border-2 mb-2 w-40 hover:brightness-75 cursor-not-allowed"
             />
-          </label>
+          </div>
 
-          <label htmlFor="username" className="block">
-            <span class="block text-sm font-medium text-slate-700 md:mb-2">
-              Username
-            </span>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              required
-              onChange={handleChange}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("username required.")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
-              placeholder="Input Username"
-              value={username}
-              className="w-full p-3 outline outline-2 outline-gray-400 focus:outline-black rounded-md bg-gray-200"
-            />
-          </label>
+          <form onSubmit={handleSubmit}>
+            <input type="hidden" name="remember" defaultValue="true" />
+            <div className="rounded-md shadow-sm -space-y-px">
+              <div>
+                <label htmlFor="fullname" className="">
+                  Fullname
+                  <input
+                    id="fullname"
+                    name="fullname"
+                    type="fullname"
+                    autoComplete="fullname"
+                    required
+                    onChange={handleChange}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("fullname required.")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Input Fullame"
+                    value={fullname}
+                  />
+                </label>
+              </div>
 
-          <label htmlFor="name" className="block">
-            <span class="block text-sm font-medium text-slate-700 md:mb-2">
-              Phone Number
-            </span>
-            <input
-              type="number"
-              name="phone"
-              id="phone"
-              onChange={handleChange}
-              onInvalid={(e) => e.target.setCustomValidity("phone required.")}
-              onInput={(e) => e.target.setCustomValidity("")}
-              placeholder="Input Phone"
-              value={phone}
-              className="w-full p-3 outline outline-2 outline-gray-400 focus:outline-black rounded-md bg-gray-200"
-            />
-          </label>
+              <div>
+                <label htmlFor="username" className="">
+                  Username
+                  <input
+                    id="username"
+                    name="username"
+                    type="username"
+                    autoComplete="username"
+                    required
+                    onChange={handleChange}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("username required.")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Input Username"
+                    value={username}
+                  />
+                </label>
+              </div>
 
-          <label htmlFor="address" className="block">
-            <span class="block text-sm font-medium text-slate-700 md:mb-2">
-              Address
-            </span>
-            <input
-              type="text"
-              name="address"
-              id="address"
-              required
-              onChange={handleChange}
-              onInvalid={(e) => e.target.setCustomValidity("address required.")}
-              onInput={(e) => e.target.setCustomValidity("")}
-              placeholder="Input Address"
-              value={address}
-              className="w-full p-3 outline outline-2 outline-gray-400 focus:outline-black rounded-md bg-gray-200"
-            />
-          </label>
+              <div>
+                <label htmlFor="gender" className="">
+                  Gender
+                  <input
+                    id="gender"
+                    name="gender"
+                    type="gender"
+                    autoComplete="gender"
+                    required
+                    onChange={handleChange}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("gender required.")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Male / Female"
+                    value={gender}
+                  />
+                </label>
+              </div>
 
-          <label htmlFor="email" className="block">
-            <span class="block text-sm font-medium text-slate-700 md:mb-2">
-              Email
-            </span>
-            <input
-              disabled
-              type="email"
-              name="email"
-              id="email"
-              required
-              onChange={handleChange}
-              onInvalid={(e) => e.target.setCustomValidity("email required.")}
-              onInput={(e) => e.target.setCustomValidity("")}
-              placeholder="Input Email"
-              value={email}
-              className="cursor-not-allowed disabled:text-slate-500 disabled:shadow-none w-full p-3 outline outline-2 outline-gray-400 focus:outline-black rounded-md bg-gray-200"
-            />
-          </label>
+              <div>
+                <label htmlFor="fullname" className="">
+                  Phone Number
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="number"
+                    autoComplete="phone"
+                    required
+                    onChange={handleChange}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("phone required.")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Input Phone Number"
+                    value={phone}
+                  />
+                </label>
+              </div>
+
+              <div>
+                <label htmlFor="address" className="">
+                  Address
+                  <input
+                    id="address"
+                    name="address"
+                    type="address"
+                    autoComplete="address"
+                    required
+                    onChange={handleChange}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("address required.")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Input Address"
+                    value={address}
+                  />
+                </label>
+              </div>
+
+              <div>
+                <label htmlFor="email" className="">
+                  Email
+                  <input
+                    disabled
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    onChange={handleChange}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("email required.")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    className="cursor-not-allowed disabled:text-slate-500 disabled:shadow-none bg-gray-200 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Input Email"
+                    value={email}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="mt-5 cursor-pointer group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-center"
+            >
+              Save Changes
+            </button>
+            {message && message}
+          </form>
         </div>
-        <button
-          type="submit"
-          className="cursor-progress w-full py-2 rounded-md text-center font-bold bg-blue-600 text-white"
-        >
-          Save Changes
-        </button>
-        {message && message}
-      </form>
-    </div>
+      </div>
+    </>
   );
 }

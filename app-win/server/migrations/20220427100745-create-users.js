@@ -14,6 +14,9 @@ module.exports = {
       username: {
         type: Sequelize.STRING
       },
+      gender: {
+        type: Sequelize.STRING
+      },
       phone: {
         type: Sequelize.STRING
       },

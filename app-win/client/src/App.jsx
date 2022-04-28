@@ -1,15 +1,18 @@
 import React, { useContext, useEffect } from "react";
-import { Routes, Route, useParams, useNavigate } from "react-router-dom";
-import Jumbotron from "./components/Jumbotron";
+import { Routes, Route, useNavigate } from "react-router-dom";
+
 import ModalLogin from "./components/modals/ModalLogin";
 import ModalRegister from "./components/modals/ModalRegister";
-import Navbar from "./components/Navbar";
+
 import { LoginContext } from "./context/context";
-import Dashboard from "./pages/Dashboard";
-import Profile from "./pages/Profile";
 import { setAuthToken } from "./config/api";
 import { UserContext } from "./context/userContext";
 import { API } from "./config/api";
+
+import Navbar from "./components/Navbar";
+import Jumbotron from "./components/Jumbotron";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 
 if (localStorage.token) {
@@ -67,10 +70,7 @@ const App = () => {
       <ModalLogin />
       <Routes>
         <Route exact path="/" element={<Dashboard />} />
-        {/* <Route path="/addJourney" element={<AddJourney />} /> */}
         <Route path="/profile" element={<Profile />} />
-        {/* <Route path="/detail/:id" element={<Detail />} /> */}
-        {/* <Route path="/bookmark" element={<Bookmark />} /> */}
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     </div>

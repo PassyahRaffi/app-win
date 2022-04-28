@@ -47,7 +47,10 @@ exports.register = async (request, response) => {
 
     const newUser = await users.create({
       fullname: request.body.fullname,
+      username: request.body.username,
+      gender: request.body.gender,
       phone: request.body.phone,
+      address: request.body.address,
       email: request.body.email,
       password: hashedPassword,
       image: "default-user.png",
@@ -58,6 +61,7 @@ exports.register = async (request, response) => {
         id: users.id,
         fullname: newUser.fullname,
         username: newUser.username,
+        gender: newUser.gender,
         phone: newUser.phone,
         address: newUser.address,
         email: newUser.email,
@@ -73,6 +77,7 @@ exports.register = async (request, response) => {
       data: {
         fullname: newUser.fullname,
         username: newUser.username,
+        gender: newUser.gender,
         phone: newUser.phone,
         address: newUser.address,
         email: newUser.email,
@@ -138,10 +143,11 @@ exports.login = async (request, response) => {
       id: existUser.id,
       fullname: existUser.fullname,
       username: existUser.username,
+      gender: existUser.gender,
       phone: existUser.phone,
       address: existUser.address,
       email: existUser.email,
-      image: uploadServer + existUser.image, /* add here */
+      image: uploadServer + existUser.image,
       token,
     };
 
@@ -159,6 +165,7 @@ exports.login = async (request, response) => {
   }
 };
 
+// AUTH
 exports.checkAuth = async (request, response) => {
   try {
     const id = request.users.id;
@@ -175,7 +182,7 @@ exports.checkAuth = async (request, response) => {
     if (!dataUser) {
       return response.status(404).send({
         status: "failed",
-        message: "User not Found",
+        message: "User not Found!",
       });
     }
 
@@ -185,9 +192,12 @@ exports.checkAuth = async (request, response) => {
         user: {
           id: dataUser.id,
           fullname: dataUser.fullname,
-          email: dataUser.email,
+          username: dataUser.username,
+          gender: dataUser.gender,
           phone: dataUser.phone,
-          image: uploadServer + dataUser.image, /* add here */
+          address: dataUser.address,
+          email: dataUser.email,
+          image: uploadServer + dataUser.image,
         },
       },
     });
